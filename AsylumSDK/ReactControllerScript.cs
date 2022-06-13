@@ -47,7 +47,7 @@ namespace Asylum
         [DllImport("__Internal")]
         public static extern void OnControllerUnloaded();
 #endif
-        private List<AsylumItem> _unicItems = new();
+        private List<AsylumItem> _uniqItems = new();
 
         private Dictionary<string, Dictionary<string, string>> _itemLoadedMetadata = new();
         private Dictionary<InterpretationCombineID, byte[]> _interpretationLoadedData = new();
@@ -66,7 +66,7 @@ namespace Asylum
         public Action OnPauseRequestedAction;
 
         public bool itemsInited = false;
-        public List<AsylumItem> UnicItems => _unicItems;
+        public List<AsylumItem> UniqItems => _uniqItems;
 
         void Start()
         {
@@ -93,7 +93,7 @@ namespace Asylum
         
         private void StartLoadItemsInterpretationData()
         {
-            foreach(var item in _unicItems)
+            foreach(var item in _uniqItems)
             {
                 //Start loading item metadata
                 StartCoroutine(LoadingCoroutine<string>($"{path}{item.metadata}", item.templateId, OnItemMetadaLoaded));
@@ -213,7 +213,7 @@ namespace Asylum
 
         public string[] GetInterpretationTags(InterpretationCombineID interpretationID)
         {
-            var foundItem = _unicItems.Find(item => item.templateId == interpretationID.templateID);
+            var foundItem = _uniqItems.Find(item => item.templateId == interpretationID.templateID);
 
             if (foundItem != null)
             {
@@ -295,13 +295,13 @@ namespace Asylum
 
             foreach (var item in items)
             {
-                if (_unicItems.Any(savedItem => savedItem.templateId == item.templateId))
+                if (_uniqItems.Any(savedItem => savedItem.templateId == item.templateId))
                 {
                     //We have this item already
                     continue;
                 }
 
-                _unicItems.Add(item); //MB Start loading by single item right after it parsing?
+                _uniqItems.Add(item); //MB Start loading by single item right after it parsing?
 
                // UnityEngine.Debug.Log($"ReactController Item w/ templateID {item.templateId} was parsed and loaded");
             }
@@ -310,7 +310,7 @@ namespace Asylum
 
             itemsInited = true;
 
-            OnItemsAddedAction?.Invoke(_unicItems); // MB Before loading starting
+            OnItemsAddedAction?.Invoke(_uniqItems); // MB Before loading starting
         }
 
 
