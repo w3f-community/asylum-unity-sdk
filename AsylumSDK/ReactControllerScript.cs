@@ -47,9 +47,9 @@ namespace Asylum
         [DllImport("__Internal")]
         public static extern void OnControllerUnloaded();
 #endif
-        private List<AsylumItem> _uniqItems = new();
+        private List<AsylumItem> _itemsList = new();
 
-        private Dictionary<string, Dictionary<string, string>> _itemLoadedMetadata = new();
+        private Dictionary<ItemCombineID, Dictionary<string, string>> _itemLoadedMetadata = new();
         private Dictionary<InterpretationCombineID, byte[]> _interpretationLoadedData = new();
         private Dictionary<InterpretationCombineID, Dictionary<string, string>> _interpretationLoadedMetadata = new();
 
@@ -57,7 +57,7 @@ namespace Asylum
 
         public Action<List<AsylumItem>> OnItemsAddedAction;
 
-        public Action<string, Dictionary<string, string>> OnItemMetadataLoadedAction;
+        public Action<ItemCombineID, Dictionary<string, string>> OnItemMetadataLoadedAction;
 
         public Action<InterpretationCombineID, string[], byte[]> OnInterpretationSourceLoadedAction;
 
@@ -66,7 +66,7 @@ namespace Asylum
         public Action OnPauseRequestedAction;
 
         public bool itemsInited = false;
-        public List<AsylumItem> UniqItems => _uniqItems;
+        public List<AsylumItem> ItemsList => _itemsList;
 
         void Start()
         {
@@ -93,10 +93,12 @@ namespace Asylum
         
         private void StartLoadItemsInterpretationData()
         {
-            foreach(var item in _uniqItems)
+            foreach(var item in _itemsList)
             {
+
+                var currentItemID = new ItemCombineID(item.templateId, item.id);
                 //Start loading item metadata
-                StartCoroutine(LoadingCoroutine<string>($"{path}{item.metadata}", item.templateId, OnItemMetadaLoaded));
+                StartCoroutine(LoadingCoroutine<ItemCombineID>($"{path}{item.metadata}", currentItemID, OnItemMetadaLoaded));
                 
                 foreach (var interpritation in item.interpretations)
                 {
@@ -104,7 +106,7 @@ namespace Asylum
 
                     InterpretationCombineID interpretationID = new InterpretationCombineID
                     {
-                        templateID = item.templateId,
+                        itemCombineID = currentItemID,
                         interpretationID = interpritation.interpretation.id
                     };
 
@@ -134,11 +136,11 @@ namespace Asylum
             OnDataLoaded?.Invoke(id, bytes);
         }
 
-        private void OnItemMetadaLoaded(string templateID, byte[] rawData)
+        private void OnItemMetadaLoaded(ItemCombineID itemID, byte[] rawData)
         {
-            if (_itemLoadedMetadata.ContainsKey(templateID))
+            if (_itemLoadedMetadata.ContainsKey(itemID))
             {
-                UnityEngine.Debug.LogWarning($"Already have such item metadata!");
+                UnityEngine.Debug.LogWarning($"React Already have such item metadata!");
                 return;
             }
 
@@ -151,23 +153,23 @@ namespace Asylum
 
                 if (metadataDictionary != null && metadataDictionary.Count > 0)
                 {
-                    _itemLoadedMetadata.Add(templateID, metadataDictionary);
-                    OnItemMetadataLoadedAction?.Invoke(templateID, metadataDictionary);
+                    _itemLoadedMetadata.Add(itemID, metadataDictionary);
+                    OnItemMetadataLoadedAction?.Invoke(itemID, metadataDictionary);
                 }
                 else
                 {
-                    UnityEngine.Debug.LogWarning($"ERROR Item.metadata parsing ID : {templateID} ");
+                    UnityEngine.Debug.LogWarning($"React ERROR Item.metadata parsing ID : {itemID} ");
                 }
             }
             else
             {
-                UnityEngine.Debug.LogWarning($"ERROR Item.metadata null or empty ID : {templateID}");
+                UnityEngine.Debug.LogWarning($"React ERROR Item.metadata null or empty ID : {itemID}");
             }
         }
 
-        public Dictionary<string, string> GetItemMetadata(string templateID)
+        public Dictionary<string, string> GetItemMetadata(ItemCombineID itemID)
         {
-            if (_itemLoadedMetadata.TryGetValue(templateID, out Dictionary<string, string> loadedData))
+            if (_itemLoadedMetadata.TryGetValue(itemID, out Dictionary<string, string> loadedData))
             {
                 if (loadedData.Count > 0)
                 {
@@ -182,7 +184,7 @@ namespace Asylum
         {
             if (_interpretationLoadedData.ContainsKey(interpretationID))
             {
-                UnityEngine.Debug.LogWarning($"Already have such source data!");
+                UnityEngine.Debug.LogWarning($"React Already have such source data!");
                 return;
             }
 
@@ -194,7 +196,7 @@ namespace Asylum
             }
             else
             {
-                UnityEngine.Debug.LogWarning($"ERROR Intr.source null or empty ID : {interpretationID.templateID} {interpretationID.interpretationID}");
+                UnityEngine.Debug.LogWarning($"React ERROR Intr.source null or empty ID : {interpretationID.itemCombineID.ToString()} {interpretationID.interpretationID}");
             }
         }
 
@@ -213,7 +215,8 @@ namespace Asylum
 
         public string[] GetInterpretationTags(InterpretationCombineID interpretationID)
         {
-            var foundItem = _uniqItems.Find(item => item.templateId == interpretationID.templateID);
+            var foundItem = _itemsList.Find(item => item.templateId == interpretationID.itemCombineID.templateID
+                                                    && item.id == interpretationID.itemCombineID.itemID);
 
             if (foundItem != null)
             {
@@ -233,7 +236,7 @@ namespace Asylum
         {
             if (_interpretationLoadedMetadata.ContainsKey(interpretationID))
             {
-                UnityEngine.Debug.LogWarning($"Already have such interpretation metadata!");
+                UnityEngine.Debug.LogWarning($"React Already have such interpretation metadata!");
                 return;
             }
 
@@ -251,14 +254,13 @@ namespace Asylum
                 }
                 else
                 {
-                    UnityEngine.Debug.LogWarning($"ERROR Intr.metadata parsing ID : {interpretationID.templateID} {interpretationID.interpretationID}");
+                    UnityEngine.Debug.LogWarning($"React ERROR Intr.metadata parsing ID : {interpretationID.itemCombineID.ToString()} {interpretationID.interpretationID}");
                 }
             }
             else
             {
-                UnityEngine.Debug.LogWarning($"ERROR Intr.metadata null or empty ID : {interpretationID.templateID} {interpretationID.interpretationID}");
+                UnityEngine.Debug.LogWarning($"React ERROR Intr.metadata null or empty ID : {interpretationID.itemCombineID.ToString()} {interpretationID.interpretationID}");
             }
-
         }
 
         public Dictionary<string, string> GetInterpretationMetadata(InterpretationCombineID interpretationID)
@@ -295,22 +297,14 @@ namespace Asylum
 
             foreach (var item in items)
             {
-                if (_uniqItems.Any(savedItem => savedItem.templateId == item.templateId))
-                {
-                    //We have this item already
-                    continue;
-                }
-
-                _uniqItems.Add(item); //MB Start loading by single item right after it parsing?
-
-               // UnityEngine.Debug.Log($"ReactController Item w/ templateID {item.templateId} was parsed and loaded");
+                _itemsList.Add(item); //MB Start loading by single item right after it parsing?
             }
 
             StartLoadItemsInterpretationData();
 
             itemsInited = true;
 
-            OnItemsAddedAction?.Invoke(_uniqItems); // MB Before loading starting
+            OnItemsAddedAction?.Invoke(_itemsList); // MB Before loading starting
         }
 
 

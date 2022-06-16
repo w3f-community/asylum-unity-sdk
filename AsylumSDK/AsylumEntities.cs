@@ -80,19 +80,73 @@ namespace Asylum
 
     public class InterpretationCombineID
     {
-        public string templateID;
+        //public string templateID;
+
+        public ItemCombineID itemCombineID;
         public string interpretationID; //Can dublicate in differnt templates
 
         public override bool Equals(object obj)
         {
             return obj is InterpretationCombineID iD &&
-                   templateID == iD.templateID &&
+                   itemCombineID ==  iD.itemCombineID &&
                    interpretationID == iD.interpretationID;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(templateID, interpretationID);
+            return HashCode.Combine(itemCombineID, interpretationID);
+        }
+    }
+
+    [Serializable]
+    public class ItemCombineID
+    {
+        public string templateID;
+        public string itemID; //Can dublicate in the different templates
+
+        public override bool Equals(object obj)
+        {
+            return obj is ItemCombineID iD &&
+                   templateID == iD.templateID &&
+                   itemID == iD.itemID;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(templateID, itemID);
+        }
+
+        public override string ToString()
+        {
+            return $"{templateID}_{itemID}";
+        }
+
+        public ItemCombineID(string tID = "-1", string iID = "-1")
+        {
+            templateID = tID;
+            itemID = iID;
+        }
+
+        public static bool operator == (ItemCombineID first, ItemCombineID second)
+        {
+            if(first.itemID == second.itemID
+                && first.templateID == second.templateID)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool operator != (ItemCombineID first, ItemCombineID second)
+        {
+            if(first.itemID != second.itemID
+                || first.templateID != second.templateID)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
