@@ -37,7 +37,7 @@ Events:
         }
     ```
 - Get user items list in the _ItemsController_ simply calling property ItemsList or subsribe on the event OnItemsAddedAction
-    ```C#
+    ```cs
         //ItemsController.cs
 
         ReactControllerScript reactControllerInstance;
@@ -55,7 +55,7 @@ Events:
         }
     ```
 - Get items data by the loading end event (f.e. OnItemMetadataLoadedAction) or manually by the method (f.e. GetItemMetadata)
-    ```C#
+    ```cs
         //ItemsController.cs
 
         ReactControllerScript reactControllerInstance;
@@ -75,7 +75,7 @@ Events:
     ```
 - After getting the item's data it’s possible to display it in-game(f.e. required interpretation with “default-view” tag using [UI:Image](https://docs.unity3d.com/2021.3/Documentation/ScriptReference/UIElements.Image.html))
 
-    ```C#
+    ```cs
         //ItemsController.cs
 
         ReactControllerScript reactControllerInstance;
