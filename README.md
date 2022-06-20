@@ -2,7 +2,7 @@
 
 Asylum Unity SDK. Provides plugins, editor scripts, and a set of utilities to integrate with Asylum ecosystem
 
-NOTE: This plugin version created for the Unity builds at the WebGL platform and using react-unity(link) for connection between web page context and in-game content. 
+> Note: This plugin version created for the Unity and WebGL builds. You can run this build natively in html page or inside React application with the help of [react-unity-webgl](https://www.npmjs.com/package/react-unity-webgl). To ease the integration with Asylum ecosystem you can run the build via [Game Developers Console](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console) ([see below](#run-the-build-inside-game-developer-console))
 
 ## Asylum plugin:
 - jslib file responsible for connection between Unity and Asylum React.app
@@ -103,7 +103,7 @@ Events:
             }
         }
     ```
-## Testing
+## Run the build inside Game Developer Console
 - For testing needed to switch platform into WebGL and press “Build” button in the “Build Settings” window (File > Build Settings or Ctrl+Shift+B)
 - At the build end there will be 4 required files by the “BuildName/Build” path:
     - BuildName.data
