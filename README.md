@@ -1,6 +1,9 @@
 # Asylum Unity SDK
 
 Asylum Unity SDK. Provides plugins, editor scripts, and a set of utilities to integrate with Asylum ecosystem
+
+NOTE: This plugin version created for the Unity builds at the WebGL platform and using react-unity(link) for connection between web page context and in-game content. 
+
 ## Asylum plugin:
 - jslib file responsible for connection between Unity and Asylum React.app
 - AsylumEntities.cs C# code file contains entities presenting data
@@ -26,6 +29,8 @@ Events:
 - Create or open Unity project (supports version 2021.3 and above)
 - [Import](https://docs.unity3d.com/Manual/AssetPackagesImport.html) [Newtonsoft Json Unity Package](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@2.0/manual/index.html) (dependency for Asylum SDK)
 - Put AsylumSDK into Unity **Assets/Plugins** folder or create [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) at that path
+
+## Using in the Unity project
 - Create empty GameObject named “**ReactController**” in the scene and add ReactControllerScript.cs as its component
 - Create new C# script(f.e. _ItemsController_) and link ReactControllerScript component to it (via inspector using public/serializable fields or [FindObjectOfType method](https://docs.unity3d.com/ScriptReference/Object.FindObjectOfType.html) or DI like Zenject)
     ```cs
@@ -107,4 +112,4 @@ Events:
     - BuildName.wasm
 
     Those files **must be** placed into “asylum-ui/packages/connection-library/data” with the same name as in the "asylum-ui/packages/      connection-library/seed/mocks.ts : IGameMockData : gameClient” - it's "**ReactBuild**" now
-- Next steps will be the same as in the usual [Asylum react app installation](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console#run-game-developers-console-manual-setup).
+- For the next steps follow [Asylum react app installation](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console#run-game-developers-console-manual-setup).
