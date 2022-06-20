@@ -1,18 +1,18 @@
 # Asylum Unity SDK
 
-Asylum Unity SDK. Provides plugins, editor scripts, and a set of utilities to integrate with Asylum ecosystem
+Asylum Unity SDK. Provides plugins, editor scripts, and a set of utilities to integrate with the Asylum ecosystem
 
-The plugin is created for the Unity and WebGL builds. You can run this build natively within html page or inside React application with the help of [react-unity-webgl](https://www.npmjs.com/package/react-unity-webgl). To ease the integration with Asylum ecosystem you can run the build via [Game Developers Console](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console) ([see below](#run-the-build-inside-game-developer-console))
+The plugin is created for the Unity, and WebGL builds. You can run this build natively within HTML page or inside React application with the help of [react-unity-webgl](https://www.npmjs.com/package/react-unity-webgl). To ease the integration with Asylum ecosystem you can run the build via [Game Developers Console](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console) ([see below](#run-the-build-inside-game-developer-console))
 
 > Unity version supported: ^2021.3
 
 ## Asylum plugin:
-- `jslib` file responsible for connection between Unity and JS code, which runs the build
-- `AsylumEntities.cs` file contains type and entities you need to initialize Asylum NFT Items
+- `jslib` file is responsible for the connection between Unity and JS code, which runs the build
+- `AsylumEntities.cs` file contains types and entities you need to initialize Asylum NFT Items
 - `ReactControllerScript.cs` file responsible for connection between Unity life circle and `jslib`, parsing and downloading on-chain data
 
 ## Installation
-- Create or open Unity project (supports version 2021.3 and above)
+- Create or open a Unity project (supports version 2021.3 and above)
 - Import [Newtonsoft Json Unity Package](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@2.0/manual/index.html) using [AssetPackagesImport](https://docs.unity3d.com/Manual/AssetPackagesImport.html). This is the dependency for Asylum Unity SDK.
 - Put Asylum Unity SDK inside Unity `Assets/Plugins` folder
 
@@ -68,7 +68,7 @@ The plugin is created for the Unity and WebGL builds. You can run this build nat
             ...
         }
     ```
-- After getting the item's data it’s possible to display it in-game. Let's try to load `default-view` interpretation using [UI:Image](https://docs.unity3d.com/2021.3/Documentation/ScriptReference/UIElements.Image.html)
+- After getting the item's data, it’s possible to display it in-game. Let's try to load `default-view` interpretation using [UI:Image](https://docs.unity3d.com/2021.3/Documentation/ScriptReference/UIElements.Image.html)
 
     ```cs
         //ItemsController.cs
