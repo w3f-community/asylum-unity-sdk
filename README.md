@@ -28,7 +28,7 @@ Events:
 - Put AsylumSDK into Unity **Assets/Plugins** folder or create [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) at that path
 - Create empty GameObject named “**ReactController**” in the scene and add ReactControllerScript.cs as its component
 - Create new C# script(f.e. _ItemsController_) and link ReactControllerScript component to it (via inspector using public/serializable fields or [FindObjectOfType method](https://docs.unity3d.com/ScriptReference/Object.FindObjectOfType.html) or DI like Zenject)
-    ```C#
+    ```cs
         //ItemsController.cs
 
         void Start
