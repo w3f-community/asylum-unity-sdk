@@ -17,7 +17,7 @@ The plugin is created for the Unity and WebGL builds. You can run this build nat
 - Put Asylum Unity SDK inside Unity `Assets/Plugins` folder
 
 ## Usage
-- Create empty `GameObject` named `ReactController` in the scene and add `ReactControllerScript.c`s as its component
+- Create empty `GameObject` named `ReactController` in the scene and add `ReactControllerScript.cs` as its component
 - Create new C# script(e.g. `ItemsController`) and link `ReactControllerScript` component to it. You can do it via inspector, using public/serializable fields or [FindObjectOfType method](https://docs.unity3d.com/ScriptReference/Object.FindObjectOfType.html) or with the help of dependency injection (like Zenject)
     ```cs
         //ItemsController.cs
@@ -68,7 +68,7 @@ The plugin is created for the Unity and WebGL builds. You can run this build nat
             ...
         }
     ```
-- After getting the item's data it’s possible to display it in-game. Let's try to load `default-view` interpretation using [UI:Image](https://docs.unity3d.com/2021.3/Documentation/ScriptReference/UIElements.Image.html))
+- After getting the item's data it’s possible to display it in-game. Let's try to load `default-view` interpretation using [UI:Image](https://docs.unity3d.com/2021.3/Documentation/ScriptReference/UIElements.Image.html)
 
     ```cs
         //ItemsController.cs
