@@ -6,7 +6,7 @@ The plugin is created for the Unity, and WebGL builds. You can run this build na
 
 > Unity version supported: ^2021.3
 
-## Asylum plugin:
+## Plugin inwards
 - `jslib` file is responsible for the connection between Unity and JS code, which runs the build
 - `AsylumEntities.cs` file contains types and entities you need to initialize Asylum NFT Items
 - `ReactControllerScript.cs` file responsible for connection between Unity life circle and `jslib`, parsing and downloading on-chain data
