@@ -13,8 +13,8 @@ The plugin is created for the Unity and WebGL builds. You can run this build nat
 
 ## Installation
 - Create or open Unity project (supports version 2021.3 and above)
-- [Import](https://docs.unity3d.com/Manual/AssetPackagesImport.html) [Newtonsoft Json Unity Package](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@2.0/manual/index.html) (dependency for Asylum Unity SDK)
-- Put Asylum Unity SDK into Unity `Assets/Plugins` folder
+- Import [Newtonsoft Json Unity Package](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@2.0/manual/index.html) using [AssetPackagesImport](https://docs.unity3d.com/Manual/AssetPackagesImport.html). This is the dependency for Asylum Unity SDK.
+- Put Asylum Unity SDK inside Unity `Assets/Plugins` folder
 
 ## Usage
 - Create empty `GameObject` named `ReactController` in the scene and add `ReactControllerScript.c`s as its component
