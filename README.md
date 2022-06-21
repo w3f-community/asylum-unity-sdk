@@ -11,12 +11,68 @@ The plugin is created for the Unity, and WebGL builds. You can run this build na
 - `AsylumEntities.cs` file contains types and entities you need to initialize Asylum NFT Items
 - `ReactControllerScript.cs` file responsible for connection between Unity life circle and `jslib`, parsing and downloading on-chain data
 
-## Installation
+## Building process
+
+> NOTE: For testing purpose is strictly required using Asylum Unity SDK in pair with GDC only
+
+### Using test project
+- Download or clone [example project](https://gitlab.com/asylum-space/asylum-unity-sdk-example)
+- Step forward to the [next step](#run-the-build-inside-game-developers-console)
+
+### Manual installation
 - Create or open a Unity project (supports version 2021.3 and above)
 - Import [Newtonsoft Json Unity Package](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@2.0/manual/index.html) using [AssetPackagesImport](https://docs.unity3d.com/Manual/AssetPackagesImport.html). This is the dependency for Asylum Unity SDK.
 - Put Asylum Unity SDK inside Unity `Assets/Plugins` folder
+- Step forward to the [next step](#run-the-build-inside-game-developers-console)
 
-## Usage
+## Run the build inside Game Developers Console
+1. Change the _"Compression format"_ in the **Edit > Project Settings > Player > WebGL settings > Publishing settings** to the _"Disabled"_
+2. Form WebGL build: **File > Build Settings > Build**. The WebGL build consists of 4 files:
+    - BuildName.data
+    - BuildName.framework.js
+    - BuildName.loader.js
+    - BuildName.wasm
+3. Place these files inside **asylum-ui/packages/connection-library/data/build_name** and the path to the build within `const games: IGameMockData[]` inside **asylum-ui/packages/connection-library/seed/mocks.ts**:
+```ts
+export const games: IGameMockData[] = [
+...
+{
+    id: 'game_id',
+    title: 'Your Game',
+    img: 'image_url',
+    genre: '...',
+    shortDescription: '...',
+    description: '...',
+    gallery: [...],
+    supportedTemplates: [0, 1, 2, 3],
+    gameClient: {
+         data: 'data/build_name/BuildName.data',
+         framework: 'data/build_name/BuildName.framework.js',
+         loader: 'data/build_name/BuildName.loader.js',
+         wasm: 'data/build_name/BuildName.wasm',
+    }
+}
+...
+```
+
+4. Follow the steps to run [Game Developers Console (manual setup)](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console#run-game-developers-console-manual-setup) locally and seed the data.
+
+## ReactControllerScript API
+Actions and properties:
+- `UniqItems` - returns the list of the loaded items
+- `GetItemMetadata` - returns item's metadata
+- `GetInterpretationSourceData` - returns interpretation source data
+- `GetInterpretationTags` - retursn array of the interpretation tags
+- `GetInterpretationMetadata` -returns interpretation metadata
+
+Events:
+- `OnItemsAddedAction` - when all user items was parsed and initialized in the ReactController
+- `OnItemMetadataLoadedAction` - when item metadata was loaded
+- `OnInterpretationSourceLoadedAction` - when interpretation source data was loaded
+- `OnInterpretationMetadataLoadedAction` - when interpretation metadata was loaded
+- `OnPauseRequestedAction` - when react.application is requested game pause
+
+### Usage
 - Create empty `GameObject` named `ReactController` in the scene and add `ReactControllerScript.cs` as its component
 - Create new C# script(e.g. `ItemsController`) and link `ReactControllerScript` component to it. You can do it via inspector, using public/serializable fields or [FindObjectOfType method](https://docs.unity3d.com/ScriptReference/Object.FindObjectOfType.html) or with the help of dependency injection (like Zenject)
     ```cs
@@ -93,48 +149,3 @@ The plugin is created for the Unity, and WebGL builds. You can run this build na
             }
         }
     ```
-## Run the build inside Game Developers Console
-1. Firstly, you have to form WebGL build: **File > Build Settings > Build**. The WebGL build consists of 4 files:
-    - BuildName.data
-    - BuildName.framework.js
-    - BuildName.loader.js
-    - BuildName.wasm
-2. Place these files inside **asylum-ui/packages/connection-library/data/build_name** and the path to the build within `const games: IGameMockData[]` inside **asylum-ui/packages/connection-library/seed/mocks.ts**:
-```ts
-export const games: IGameMockData[] = [
-...
-{
-    id: 'game_id',
-    title: 'Your Game',
-    img: 'image_url',
-    genre: '...',
-    shortDescription: '...',
-    description: '...',
-    gallery: [...],
-    supportedTemplates: [0, 1, 2, 3],
-    gameClient: {
-         data: 'data/build_name/BuildName.data',
-         framework: 'data/build_name/BuildName.framework.js',
-         loader: 'data/build_name/BuildName.loader.js',
-         wasm: 'data/build_name/BuildName.wasm',
-    }
-}
-...
-```
-
-3. Follow the steps to run [Game Developers Console (manual setup)](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console#run-game-developers-console-manual-setup) locally and seed the data.
-
-## ReactControllerScript API
-Actions and properties:
-- `UniqItems` - returns the list of the loaded items
-- `GetItemMetadata` - returns item's metadata
-- `GetInterpretationSourceData` - returns interpretation source data
-- `GetInterpretationTags` - retursn array of the interpretation tags
-- `GetInterpretationMetadata` -returns interpretation metadata
-
-Events:
-- `OnItemsAddedAction` - when all user items was parsed and initialized in the ReactController
-- `OnItemMetadataLoadedAction` - when item metadata was loaded
-- `OnInterpretationSourceLoadedAction` - when interpretation source data was loaded
-- `OnInterpretationMetadataLoadedAction` - when interpretation metadata was loaded
-- `OnPauseRequestedAction` - when react.application is requested game pause
