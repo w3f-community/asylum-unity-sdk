@@ -27,12 +27,17 @@ The plugin is created for the Unity, and WebGL builds. You can run this build na
 
 ## Run the build inside Game Developers Console
 1. Change the _"Compression format"_ in the **Edit > Project Settings > Player > WebGL settings > Publishing settings** to the _"Disabled"_
+![](img/project-settings.png)
 2. (Optional) Switch platform to the WebGL in the **File > Build Settings**, if another platform is chosen
+![](img/switch-platform.png)
 3. Form WebGL build: **File > Build Settings > Build**. The output WebGL build contains 4 files in the _BuildDirectory/Build_:
     - BuildName.data
     - BuildName.framework.js
     - BuildName.loader.js
     - BuildName.wasm
+
+![](img/WebGL-build.png)
+
 4. Place these files inside **asylum-ui/packages/connection-library/data/build_name** and the path to the build within `const games: IGameMockData[]` inside **asylum-ui/packages/connection-library/seed/mocks.ts**:
 ```ts
 export const games: IGameMockData[] = [
@@ -56,17 +61,30 @@ export const games: IGameMockData[] = [
 ...
 ```
 
-5. [Download](https://docs.docker.com/get-docker/), install and run Docker. 
+![](img/Build-files-data.png)
+![](img/mocks.png)
+
+5. [Download](https://docs.docker.com/get-docker/), install and run Docker
 6. Run the following command in the console at the root folder
 ```
 docker compose up
 ```
-7. Open a web browser and go to the http://localhost:3000/
-8. Add the wallet and connect to the local node.
-9. Choose the game and press the _Run_ button. 
-10. The game is opening
 
->A manual and more detailed guide is available at [Game Developers Console (manual setup)](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console#run-game-developers-console-manual-setup).
+![](img/cmd-docker.png)
+
+7. Open a web browser and go to the http://localhost:3000/
+
+8. Add the wallet and connect to the local node
+![](img/Connection.png)
+
+9. Choose the game and press the _Run_ button. 
+![](img/run-game.png)
+
+10. The game is running
+
+![](img/Items-views.png)
+
+>NOTE : A manual and more detailed guide is available at [Game Developers Console (manual setup)](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console#run-game-developers-console-manual-setup).
 
 ## ReactControllerScript API
 Actions and properties:
