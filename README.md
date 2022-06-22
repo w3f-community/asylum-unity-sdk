@@ -11,22 +11,19 @@ The plugin is created for the Unity, and WebGL builds. You can run this build na
 - `AsylumEntities.cs` file contains types and entities you need to initialize Asylum NFT Items
 - `ReactControllerScript.cs` file responsible for connection between Unity life circle and `jslib`, parsing and downloading on-chain data
 
-## Building process
+## How to build&run Asylum Unity SDK Plugin inside Unity project
 
-> NOTE: For testing purpose is strictly required using Asylum Unity SDK in pair with GDC only
+> Note: For testing purpose is strictly required using Asylum Unity SDK in pair with [Game Developers Console](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console) only
 
-### Using test project
-- Download or clone [example project](https://gitlab.com/asylum-space/asylum-unity-sdk-example)
-- Step forward to the [next step](#run-the-build-inside-game-developers-console)
+**You can check a plugin usage example in [Asylum Unity SDK Example](https://gitlab.com/asylum-space/asylum-unity-sdk-example)**
 
-### Manual installation
-- Create or open a Unity project (supports version 2021.3 and above)
-- Import [Newtonsoft Json Unity Package](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@2.0/manual/index.html) using [AssetPackagesImport](https://docs.unity3d.com/Manual/AssetPackagesImport.html). This is the dependency for Asylum Unity SDK.
-- Put Asylum Unity SDK inside Unity `Assets/Plugins` folder
-- Step forward to the [next step](#run-the-build-inside-game-developers-console)
+1. Create or open a Unity project (supports version 2021.3 and above)
+2. Import [Newtonsoft Json Unity Package](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@2.0/manual/index.html) using [AssetPackagesImport](https://docs.unity3d.com/Manual/AssetPackagesImport.html). This is the dependency for Asylum Unity SDK.
+3. Put Asylum Unity SDK inside Unity `Assets/Plugins` folder
+4. Run Unity WebGL build inside Game Developers Console ([see below](#run-the-build-inside-game-developers-console))
 
-## Run the build inside Game Developers Console
-1. Change the _"Compression format"_ in the **Edit > Project Settings > Player > WebGL settings > Publishing settings** to the _"Disabled"_
+## Run a Unity WebGL build inside Game Developers Console
+1. Change the _Compression format_ in the **Edit > Project Settings > Player > WebGL settings > Publishing settings** to the _Disabled_
 ![](img/project-settings.png)
 2. (Optional) Switch platform to the WebGL in the **File > Build Settings**, if another platform is chosen
 ![](img/switch-platform.png)
@@ -65,26 +62,24 @@ export const games: IGameMockData[] = [
 ![](img/mocks.png)
 
 5. [Download](https://docs.docker.com/get-docker/), install and run Docker
-6. Run the following command in the console at the root folder
+6. Follow the steps to [Run Game Developers Console (Docker setup)](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console#run-game-developers-console-docker-setup) and run the following command in terminal:
 ```
 docker compose up
 ```
-
-![](img/cmd-docker.png)
 
 7. Open a web browser and go to the http://localhost:3000/
 
 8. Add the wallet and connect to the local node
 ![](img/Connection.png)
 
-9. Choose the game and press the _Run_ button. 
+9. Choose the game and press the **Run** button. 
 ![](img/run-game.png)
 
-10. The game is running
+10. The build is running
 
 ![](img/Items-views.png)
 
->NOTE : A manual and more detailed guide is available at [Game Developers Console (manual setup)](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console#run-game-developers-console-manual-setup).
+> Note : A manual and more detailed guide is available at [Game Developers Console (manual setup)](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console#run-game-developers-console-manual-setup).
 
 ## ReactControllerScript API
 Actions and properties:
@@ -101,7 +96,7 @@ Events:
 - `OnInterpretationMetadataLoadedAction` - when interpretation metadata was loaded
 - `OnPauseRequestedAction` - when react.application is requested game pause
 
-### Usage
+### How to configure Asylum Unity SDK Plugin in Unity project
 - Create empty `GameObject` named `ReactController` in the scene and add `ReactControllerScript.cs` as its component
 - Create new C# script(e.g. `ItemsController`) and link `ReactControllerScript` component to it. You can do it via inspector, using public/serializable fields or [FindObjectOfType method](https://docs.unity3d.com/ScriptReference/Object.FindObjectOfType.html) or with the help of dependency injection (like Zenject)
     ```cs
