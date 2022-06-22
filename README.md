@@ -96,7 +96,7 @@ Events:
 - `OnInterpretationMetadataLoadedAction` - when interpretation metadata was loaded
 - `OnPauseRequestedAction` - when react.application is requested game pause
 
-### How to configure Asylum Unity SDK Plugin in Unity project
+### API Usage
 - Create empty `GameObject` named `ReactController` in the scene and add `ReactControllerScript.cs` as its component
 - Create new C# script(e.g. `ItemsController`) and link `ReactControllerScript` component to it. You can do it via inspector, using public/serializable fields or [FindObjectOfType method](https://docs.unity3d.com/ScriptReference/Object.FindObjectOfType.html) or with the help of dependency injection (like Zenject)
     ```cs
