@@ -35,7 +35,7 @@ The plugin is created for the Unity, and WebGL builds. You can run this build na
 
 ![](img/WebGL-build.png)
 
-4. Place these files inside **asylum-ui/packages/connection-library/data/build_name** and the path to the build within `const games: IGameMockData[]` inside **asylum-ui/packages/connection-library/seed/mocks.ts**:
+4. Place these files inside **asylum-ui/packages/connection-library/data/build_name** and add new Game in `const games: IGameMockData[]` array in **asylum-ui/packages/connection-library/seed/mocks.ts**. Specify the correct paths to your Unity build in `gameClient` and list of `supportedTemplates` (if you run seed script, you will have default NFT templates with ids `[0, 1, 2, 3]`):
 ```ts
 export const games: IGameMockData[] = [
 ...
