@@ -4,7 +4,7 @@ Asylum Unity SDK. Provides plugins, editor scripts, and a set of utilities to in
 
 The plugin is created for the Unity, and WebGL builds. You can run this build natively within HTML page or inside React application with the help of [react-unity-webgl](https://www.npmjs.com/package/react-unity-webgl). To ease the integration with Asylum ecosystem you can run the build via [Game Developers Console](https://gitlab.com/asylum-space/asylum-ui/-/tree/main/packages/game-developers-console) ([see below](#run-the-build-inside-game-developer-console))
 
-> Unity version supported: ^2021.3
+> Unity version supported: **2021.3.1f1**
 
 ## Plugin inwards
 - `jslib` file is responsible for the connection between Unity and JS code, which runs the build
@@ -17,7 +17,7 @@ The plugin is created for the Unity, and WebGL builds. You can run this build na
 
 **You can check a plugin usage example in [Asylum Unity SDK Example](https://gitlab.com/asylum-space/asylum-unity-sdk-example)**
 
-1. Create or open a Unity project (supports version 2021.3 and above)
+1. Create or open a Unity project (supports version **2021.3.1f1**)
 2. Import [Newtonsoft Json Unity Package](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@2.0/manual/index.html) using [AssetPackagesImport](https://docs.unity3d.com/Manual/AssetPackagesImport.html). This is the dependency for Asylum Unity SDK.
 3. Put Asylum Unity SDK inside Unity `Assets/Plugins` folder
 4. Run Unity WebGL build inside Game Developers Console ([see below](#run-the-build-inside-game-developers-console))
